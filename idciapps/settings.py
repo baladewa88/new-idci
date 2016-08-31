@@ -91,7 +91,7 @@ DATABASES = {
         #'USER': 'idci2',
         'PASSWORD': '',
         'HOST': 'localhost',
-        #'HOST': 'idci2.mysql.pythonanywhere-services.com',
+        #'HOST': 'newidci.mysql.pythonanywhere-services.com',
         'OPTIONS': {
           'autocommit': True,
         },
