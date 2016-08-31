@@ -1,0 +1,17 @@
+from django.conf.urls import url
+from . import views
+
+urlpatterns = [
+    url(r'^$', views.index, name='index'),
+    url(r'^adsearch/?$', views.search, name='search'),
+    url(r'^report/?$', views.analisa, name='analisa'),
+    url(r'^titlesearch/?$', views.get_name, name='name'),
+    url(r'^result/(?P<data>.+)/$', views.paperlist, name='result'),
+    url(r'^authorsearch/?$', views.authorlist, name='authorname'),
+    url(r'^resulta/(?P<data>.+)/$', views.get_authorname, name='resulta'),
+    url(r'^affsearch/?$', views.get_publisher, name='publisher'),
+    url(r'^resultaff/(?P<data>.+)/$', views.publisherlist, name='resultpub'),
+    url(r'^paper/(?P<pk>\S+)/(?P<judul>.+)/$', views.paperdetail, name='paperdetail'),
+    url(r'^mergeaff/$', views.merge_aff, name='merge_aff'),
+    url(r'^mergeaffhasil/(?P<judul>\w.)/(?P<penulis>\w+)/(?P<affiliasi>\w+)/$', views.mergeaffhasil, name='mergeaffhasil'),
+]

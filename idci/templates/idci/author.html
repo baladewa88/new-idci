@@ -1,0 +1,44 @@
+{% extends "idci/index.html" %}
+
+{% block title %}IDCI | Author Search IDCI{% endblock %}
+
+{% block content %}
+<form method="GET" action="asearch" class="post-form">
+        <table>
+            {{ form.as_p }}
+            <tr>
+                <td colspan=2>
+                    <input type="submit" value="Search" class="save	btn	btn-default">
+                </td>
+            </tr>
+        </table>
+    </form>
+<h2>Search Result</h2>
+
+<ol>
+{% for list in author %}
+<li><a href="{% url "authorlist" nama=list.name %}">{{ list.name }} | {{pap}}</a><br />
+Affiliasi : {{ list.affil }} | {{ list.email }} 
+</li>
+{% endfor %}
+</ol>
+
+
+{% endblock %}
+
+{% block rightbar %}
+<h2>Related Paper :</h2><br><br>
+{{paperdetail.abstract|linebreaks }}
+{% endblock %}
+
+{% block middletext %}
+{% endblock %}
+
+{% block topleft %}
+{% endblock %}
+
+{% block topmid %}
+{% endblock %}
+
+{% block topright %}
+{% endblock %}

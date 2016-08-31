@@ -1,0 +1,24 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>IDCI 2015</title>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="{% static 'css/styleidci.css' %}">
+<link href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    </head>
+  <body>
+        <div>
+            <h1><a href="">Indonesia Data Citation Index</a></h1>
+        </div>
+
+        {% for post in paper %}
+    <div>
+        <h1><a href="">{{ post.title }}</a></h1>
+        <p>{{ post.abstract|linebreaks }}</p>
+        <p>published: {{ post.versionTime }}</p>
+
+    </div>
+{% endfor %}
+    </body>
+</html>

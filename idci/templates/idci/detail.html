@@ -1,0 +1,64 @@
+{% extends "idciapp/index.html" %}
+
+{% block title %}IDCI | Paper Detail{% endblock %}
+
+{% block content %}
+<h2>{{ paperdetail.title }} </h2>
+Author :
+<ol>
+{% for penulis in author %}
+<li><a href="{% url "authorlist" nama=penulis.name %}">{{ penulis.name }}</a>, {{ penulis.affil}} <a href="mailto:{{penulis.email}}"><span class="glyphicon glyphicon-envelope"></span></a> </li>
+{% endfor %}
+</ol>
+<hr>
+<span class="glyphicon glyphicon-save"></span><a href="{{url.url}}">Download Paper</a> 
+<br /><br /><div class="abstrak"><h3>Abstract</h3><p>{{paperdetail.abstract|linebreaks }}</p></div>
+<br />
+Publisher : {{paperdetail.publisher }}
+<br />Index at {{paperdetail.crawlDate }}
+<br />Source Type : {{paperdetail.venueType}}
+<br />Source Title : {{paperdetail.venue}} {{paperdetail.pages}} pages. Vol. {{paperdetail.volume}} Number.{{paperdetail.number}} 
+<br />Citation : {{paperdetail.ncites}} | Self Citation : {{paperdetail.selfCites}}
+<hr><h3>Author Keywords </h3> 
+<br />{% for a in keyword %}
+{{ a.keyword }},
+{% endfor %}
+<hr>
+<p>
+<h3>References </h3> <br>
+<ol>
+{% for d in ref %}
+<li>{{ d.authors }}<br />{{ d.title}} <br />Post on {{d.year}}<hr></li>
+{% endfor %}
+</ol>
+</p>
+{% endblock %}
+
+{% block rightbar %}
+<div class="panel panel-default">
+  <div class="panel-heading"><h4>Cited by {{paperdetail.ncites}} documents</h4></div>
+  <div class="panel-body">
+  <ul>{% for r in cited %}
+  
+<li><a href="{% url "paperdetail" pk=r.paperid.pk judul=r.title %}">{{ r.paperid }}</a> <br></li>
+{% endfor %}
+</ul>
+  </div>
+</div>
+<hr>
+<h2>Related Document</h2><br><br>
+<ul>{% for e in title %}
+  
+<li><a href="{% url "paperdetail" pk=e.pk judul=e.title %}">{{ e.title }}</a> <br><i>Cited {{e.ncites}} times</i></li>
+{% endfor %}
+</ul>
+{% endblock %}
+
+{% block middletext %}
+{% endblock %}
+
+{% block topmid %}
+{% endblock %}
+
+{% block topleft %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{%	extends	"idciapp/index.html"	%}
+
+{%	block	content	%}
+{% for post in popular_paper %}
+    <div>
+        <h3><a href="{% url "paper_detail" pk=post.pk %}">{{ post.title }}</a></h3
+        <p>Cites: {{ post.ncites }} || Publisher : {{post.publisher}}</p>
+
+    </div>
+{% endfor %}
+{% endblock %}

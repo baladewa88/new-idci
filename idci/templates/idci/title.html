@@ -1,0 +1,67 @@
+{% extends "idci/index.html" %}
+
+{% block title %}IDCI | Paper Search IDCI{% endblock %}
+
+{% block content %}
+   <form action="/your-name/" method="post">
+
+		<div>
+		<label for="id_subject" class="input_title">Article's Title</label>
+		{% csrf_token %}
+		{{ form }}
+		</div>
+		<br />
+		<input type="submit" value="Submit" class="btn btn-primary btn-md"/>
+	</form>	
+<br />
+<h2>Search Result</h2>
+<ul class="list-group">
+{% for obj in list %}
+<li class="list-group-item"> 
+<a href="{% url "paperdetail" pk=obj.pk judul=obj.title %}"><h3>{{ obj.title|upper }}</h3></a> <br />
+{% for aut in authorlist %}
+	{{ aut.name }}
+{% endfor %}
+{{ obj.venue }}, Volume {{ obj.volume }},Number {{ obj.number }}. {{ obj.year }}, {{ obj.pages }} pages <br /> 
+Citation : {{ obj.ncites}} times : Selfcites : {{ obj.selfCites}} times <br />
+ISBN / ISSN : {{ obj.kodebuku}}, Publisher : {{ obj.publisher}}, {{ obj.pubAddress}}
+<br />
+
+<a href="{% url "merge_aff" %}" class="btn btn-primary">Request Merging Affiliation</a> <br />
+
+</li>
+{% endfor %}
+</ul>
+
+{% endblock %}
+
+{% block rightbar %}
+<hr>
+<h2>Filter Result</h2><br><br>
+    <form action="list" method="get">
+        {{ fd.form.as_p }}
+        <input type="submit" />
+    </form>
+Year:
+<hr>
+Affiliation :
+<hr>
+Author Name :
+<hr>
+Source Title :
+<hr>
+Keyword :
+<hr>
+{% endblock %}
+
+{% block middletext %}
+{% endblock %}
+
+{% block topleft %}
+{% endblock %}
+
+{% block topmid %}
+{% endblock %}
+
+{% block topright %}
+{% endblock %}

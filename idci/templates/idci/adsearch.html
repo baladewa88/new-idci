@@ -1,0 +1,18 @@
+{% extends "idciapp/index.html" %}
+
+{% block title %}IDCI | Advance Search Paper{% endblock %}
+
+{% block content %}
+<h1>Advanced Search</h1>
+<form method="POST"	class="post-form">{% csrf_token	%}
+{{ forme.as_p }}
+<button	type="submit"	class="save	btn	btn-default">Save</button>
+</form>
+{% endblock %}
+
+{% block rightbar %}
+{% endblock %}
+
+{% block middletext %}
+
+{% endblock %}
