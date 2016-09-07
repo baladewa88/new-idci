@@ -8,29 +8,30 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.utils import timezone
 
 class Papers(models.Model):
     id = models.CharField(primary_key=True, max_length=100)
     version = models.IntegerField()
-    cluster = models.BigIntegerField(blank=True, null=True)
+    cluster = models.BigIntegerField(blank=True, null=True, default=0)
     title = models.CharField(max_length=255, blank=True, null=True)
     abstract = models.TextField(blank=True, null=True)
     year = models.IntegerField(blank=True, null=True)
-    venue = models.ForeignKey('Venues', db_column='venue', verbose_name="Source Title")
+    venue = models.ForeignKey('Venues', db_column='venue', verbose_name="Source Title", default="")
     pages = models.CharField(max_length=20, blank=True, null=True)
     volume = models.IntegerField(blank=True, null=True)
     number = models.IntegerField(blank=True, null=True)
     publisher = models.CharField(max_length=100, blank=True, null=True)
     pubaddress = models.CharField(db_column='pubAddress', max_length=100, blank=True, null=True)  # Field name made lowercase.
-    tech = models.CharField(max_length=100, blank=True, null=True)
-    public = models.IntegerField()
-    ncites = models.IntegerField()
+    tech = models.CharField(max_length=100, blank=True, null=True, default="")
+    public = models.IntegerField(default=1)
+    ncites = models.IntegerField(default=0)
     versionname = models.CharField(db_column='versionName', max_length=20, blank=True, null=True)  # Field name made lowercase.
-    crawldate = models.DateTimeField(db_column='crawlDate')  # Field name made lowercase.
+    crawldate = models.DateTimeField(db_column='crawlDate', default=timezone.now)  # Field name made lowercase.
     repositoryid = models.CharField(db_column='repositoryID', max_length=15, blank=True, null=True)  # Field name made lowercase.
     conversiontrace = models.CharField(db_column='conversionTrace', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    selfcites = models.IntegerField(db_column='selfCites')  # Field name made lowercase.
-    versiontime = models.DateTimeField(db_column='versionTime')  # Field name made lowercase.
+    selfcites = models.IntegerField(db_column='selfCites', default=0)  # Field name made lowercase.
+    versiontime = models.DateTimeField(db_column='versionTime', default=timezone.now)  # Field name made lowercase.
     kodebuku = models.CharField(db_column='kodeBuku', max_length=10, verbose_name="ISSN / ISBN")  # Field name made lowercase.
 
     class Meta:

@@ -89,8 +89,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         #'USER': 'root',
         'USER': 'newidci',
-        'PASSWORD': '1234asdf',
         #'PASSWORD': '',
+        'PASSWORD': '1234asdf',
         #'HOST': 'localhost',
         'HOST': 'newidci.mysql.pythonanywhere-services.com',
         'OPTIONS': {
