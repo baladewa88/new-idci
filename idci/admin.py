@@ -4,7 +4,7 @@ from .models import Affiliations, Urls, Keywords, Papers, Citations, Authors, Ve
 
 class PapersAdmin(admin.ModelAdmin):
     fieldsets = [('Description',{'fields':['title','abstract','year', 'venue', 'pages', 'volume', 'number','selfcites']}),
-                ('Affiliation',{'fields':['affiliasi','publisher','pubaddress']}),
+                ('Affiliation',{'fields':['publisher','pubaddress']}),
                  ]
     list_filter = [('crawldate')]
     list_display = ('id','title','affiliasi','ncites','selfcites')
