@@ -12,7 +12,7 @@ from django.utils import timezone
 
 class Papers(models.Model):
     id = models.CharField(primary_key=True, max_length=100)
-    version = models.IntegerField()
+    version = models.IntegerField(default=1)
     cluster = models.BigIntegerField(blank=True, null=True, default=0)
     title = models.CharField(max_length=255, blank=True, null=True)
     abstract = models.TextField(blank=True, null=True)
