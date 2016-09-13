@@ -84,15 +84,15 @@ WSGI_APPLICATION = 'idciapps.wsgi.application'
 
 DATABASES = {
     'default': {
-        #'NAME': 'newidci',
-        'NAME': 'newidci$default',
+        'NAME': 'newidci',
+        #'NAME': 'newidci$default',
         'ENGINE': 'django.db.backends.mysql',
-        #'USER': 'root',
-        'USER': 'newidci',
-        #'PASSWORD': '',
-        'PASSWORD': '1234asdf',
-        #'HOST': 'localhost',
-        'HOST': 'newidci.mysql.pythonanywhere-services.com',
+        'USER': 'root',
+        #'USER': 'newidci',
+        'PASSWORD': '',
+        #'PASSWORD': '1234asdf',
+        'HOST': 'localhost',
+        #'HOST': 'newidci.mysql.pythonanywhere-services.com',
         'OPTIONS': {
           'autocommit': True,
         },
