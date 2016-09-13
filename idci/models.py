@@ -32,7 +32,7 @@ class Papers(models.Model):
     conversiontrace = models.CharField(db_column='conversionTrace', max_length=255, blank=True, null=True)  # Field name made lowercase.
     selfcites = models.IntegerField(db_column='selfCites', default=0)  # Field name made lowercase.
     versiontime = models.DateTimeField(db_column='versionTime', default=timezone.now)  # Field name made lowercase.
-    kodebuku = models.CharField(db_column='kodeBuku', max_length=10, verbose_name="ISSN / ISBN")  # Field name made lowercase.
+    #kodebuku = models.CharField(db_column='kodeBuku', max_length=10, verbose_name="ISSN / ISBN")  # Field name made lowercase.
 
     class Meta:
         #managed = False
@@ -41,6 +41,32 @@ class Papers(models.Model):
     def __str__(self):
         return self.title
 
+class Citations(models.Model):
+    #id = models.BigAutoField(primary_key=True)
+    cluster = models.BigIntegerField(blank=True, null=True)
+    authors = models.TextField(blank=True, null=True)
+    title = models.CharField(max_length=255, blank=True, null=True)
+    #venue = models.ForeignKey('Venues', db_column='venue', verbose_name="Source Title", default="")
+    #venuetype = models.CharField(db_column='venueType', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    venue = models.ForeignKey('Venues', db_column='venue', verbose_name="Source Title", default="")
+    year = models.IntegerField(blank=True, null=True)
+    pages = models.CharField(max_length=20, blank=True, null=True)
+    editors = models.TextField(blank=True, null=True)
+    publisher = models.CharField(max_length=100, blank=True, null=True)
+    pubaddress = models.CharField(db_column='pubAddress', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    volume = models.IntegerField(blank=True, null=True)
+    number = models.IntegerField(blank=True, null=True)
+    tech = models.CharField(max_length=100, blank=True, null=True)
+    raw = models.TextField(blank=True, null=True)
+    paperid = models.ForeignKey('Papers', db_column='paperid')
+    self = models.IntegerField(default=0)
+
+    class Meta:
+        #managed = False
+        db_table = 'citations'
+
+    def __str__(self):
+        return self.authors
 
 class Affiliations(models.Model):
     #id = models.BigAutoField(primary_key=True)
@@ -152,7 +178,7 @@ class Authors(models.Model):
     affil = models.CharField(max_length=255, blank=True, null=True)
     address = models.CharField(max_length=255, blank=True, null=True)
     email = models.CharField(max_length=100, blank=True, null=True)
-    ord = models.IntegerField()
+    ord = models.IntegerField(verbose_name="Author's Order")
     paperid = models.ForeignKey('Papers', db_column='paperid')
 
     class Meta:
@@ -181,33 +207,6 @@ class AuthorsRelasi(models.Model):
     class Meta:
         #managed = False
         db_table = 'authors_relasi'
-
-
-class Citations(models.Model):
-    #id = models.BigAutoField(primary_key=True)
-    cluster = models.BigIntegerField(blank=True, null=True)
-    authors = models.TextField(blank=True, null=True)
-    title = models.CharField(max_length=255, blank=True, null=True)
-    venue = models.CharField(max_length=255, blank=True, null=True)
-    venuetype = models.CharField(db_column='venueType', max_length=20, blank=True, null=True)  # Field name made lowercase.
-    year = models.IntegerField(blank=True, null=True)
-    pages = models.CharField(max_length=20, blank=True, null=True)
-    editors = models.TextField(blank=True, null=True)
-    publisher = models.CharField(max_length=100, blank=True, null=True)
-    pubaddress = models.CharField(db_column='pubAddress', max_length=100, blank=True, null=True)  # Field name made lowercase.
-    volume = models.IntegerField(blank=True, null=True)
-    number = models.IntegerField(blank=True, null=True)
-    tech = models.CharField(max_length=100, blank=True, null=True)
-    raw = models.TextField(blank=True, null=True)
-    paperid = models.ForeignKey('Papers', db_column='paperid')
-    self = models.IntegerField()
-
-    class Meta:
-        #managed = False
-        db_table = 'citations'
-
-    def __str__(self):
-        return self.authors
 
 class DjangoAdminLog(models.Model):
     action_time = models.DateTimeField()
