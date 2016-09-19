@@ -6,6 +6,7 @@ from .forms import NameForm, AuthorForm, AfiliasiForm, AfiliasiMerging
 from .models import Papers, Authors, Keywords, Citations, Urls, Affiliations, MergingAffiliasi
 
 # Create your views here.
+hitung =0
 def index(request):
     form = NameForm()
     forma = AuthorForm()
@@ -94,10 +95,11 @@ def publisherlist(request, data):
         
     pubLists = Affiliations.objects.filter(name__icontains=data)
     for cPub in pubLists:
-        count = Affiliations.objects.filter(pk=cPub.id).count()
+        global hitung
+        hitung = Affiliations.objects.filter(pk=cPub.id).count()
         
           
-    return render(request, 'idci/publisher.html', {'publisher': pubLists, 'form':form, 'pap':count })
+    return render(request, 'idci/publisher.html', {'publisher': pubLists, 'form':form, 'pap':hitung })
 
 
 def get_authorname(request):
@@ -118,7 +120,7 @@ def get_authorname(request):
 
     return render(request, 'idci/index.html', {'forma':forma})
 
-def authorlist(request, data):
+def listauthor(request, data):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -147,10 +149,10 @@ def paperdetail(request, pk, judul):
     cite = ""
     
     for c in citedd:
-        cited = Papers.ea.filter(id=c.paperid).order_by('id')
+        cited = Papers.objects.filter(id=c.paperid).order_by('id')
                                                              
     for a in key:
-        cite = Papers.ea.filter(title__icontains=a.keyword).order_by('id')
+        cite = Papers.objects.filter(title__icontains=a.keyword).order_by('id')
             
     dl = Urls.objects.get(paperid=pk)
     
@@ -177,3 +179,12 @@ def merge_aff(request):
 def mergeaffhasil(request, penulis, affiliasi, judul):
     new_entry = MergingAffiliasi(judulpaper=judul, namapenulis=penulis, namaaffiliasi=affiliasi, status="Sedang diproses")
     new_entry.save()
+
+def authorlist(request, nama):
+    author = Authors.objects.filter(name=nama).order_by('id')
+                                         
+    for a in author:
+        print ("paperid based on author > "+str(a.paperid))
+        cite = Papers.objects.filter(title=a.paperid)
+
+    return render(request, 'idci/authorlist.html', {'lists': cite})

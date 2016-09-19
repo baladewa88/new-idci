@@ -86,8 +86,8 @@ class Affiliations(models.Model):
     
 class AffiliasiRelasi(models.Model):
     #id = models.BigAutoField(primary_key=True)
-    idaffiliasi = models.BigIntegerField(db_column='idAffiliasi')  # Field name made lowercase.
-    idpaper = models.CharField(db_column='idPaper', max_length=100)  # Field name made lowercase.
+    idaffiliasi = models.ForeignKey('Affiliations', db_column='idAffiliasi')  # Field name made lowercase.
+    idpaper = models.ForeignKey('Papers', db_column='idpaper')
 
     class Meta:
         #managed = False

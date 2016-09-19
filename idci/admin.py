@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Affiliations, Urls, Keywords, Papers, Citations, Authors, Venues
+from .models import Affiliations, Urls, Keywords, Papers, Citations, Authors, Venues, AffiliasiRelasi
 from random import randint
 
 import time
@@ -19,6 +19,11 @@ class AuthorInline(admin.StackedInline):
     model = Authors
     extra = 3
     exclude = ['id','cluster']
+
+class AffiliasiRelasiInline(admin.TabularInline):
+    model = AffiliasiRelasi
+    extra = 2
+    exclude = ['id',]
     
 class PapersAdmin(admin.ModelAdmin):
     fieldsets = [('Description',{'fields':['title','abstract','year', 'venue', 'pages', 'volume', 'number','selfcites','publisher','pubaddress']})]
@@ -38,7 +43,7 @@ class PapersAdmin(admin.ModelAdmin):
         else :
             obj.save()
 
-    inlines =[KeywordsInline,UrlInline,AuthorInline]
+    inlines =[KeywordsInline,UrlInline,AuthorInline, AffiliasiRelasiInline]
     
 class CitationsAdmin(admin.ModelAdmin):
     fieldsets = [('Description',{'fields':['title','authors','venue', 'year', 'pages', 'editors', 'volume', 'number', 'paperid', 'self', 'publisher','pubaddress']})]
@@ -48,15 +53,18 @@ class CitationsAdmin(admin.ModelAdmin):
     search_fields = ['title']
 
     def save_model(self, request, obj, form, change):
-        if obj.id == "":
-            paperCount = Papers.objects.filter(title=form.cleaned_data['title']).count()
-            print("Title : "+form.cleaned_data['title']+" Jumlahnya = "+str(paperCount))
+        print(obj.id)
+        paperCount = Papers.objects.filter(title=form.cleaned_data['title']).count()
+        print(paperCount)
+        if obj.id is None:
+            print("Citation > Title : "+form.cleaned_data['title']+" Jumlahnya = "+str(paperCount))
             if paperCount>0 :
                 cite = Papers.objects.get(title=form.cleaned_data['title'])
-                cite.ncites += 1
+                cite.ncites = cite.ncites + 1
                 cite.save()
             obj.save()
         else :
+            print("Citation > ID : "+str(obj.id))
             obj.save()
         
 class AffiliasiAdmin(admin.ModelAdmin):
@@ -68,7 +76,7 @@ class AuthorsAdmin(admin.ModelAdmin):
     fieldsets = [('Description',{'fields':['paperid','name','affil','address', 'email', 'ord']})]
     list_display = ('name','affil', )
     ordering = ('name',)
-
+    
 admin.site.register(Papers, PapersAdmin)
 admin.site.register(Urls)
 admin.site.register(Keywords)
