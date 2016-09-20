@@ -165,11 +165,14 @@ class AuthorBasedata(models.Model):
     namalengkap = models.CharField(max_length=55)
     affiliasi = models.TextField()
     alamat_affiliasi = models.TextField()
-
+    jumlahdokumen = models.IntegerField(blank=True, null=True, default=0)
+    
     class Meta:
         #managed = False
         db_table = 'author_basedata'
-
+        
+    def __str__(self):
+        return self.namalengkap
 
 class Authors(models.Model):
     #id = models.BigAutoField(primary_key=True)
@@ -201,8 +204,8 @@ class Authorsaffil(models.Model):
         
 class AuthorsRelasi(models.Model):
     #id = models.BigAutoField(primary_key=True)
-    idbasedata = models.BigIntegerField(db_column='idBasedata')  # Field name made lowercase.
-    idauthors = models.BigIntegerField(db_column='idAuthors')  # Field name made lowercase.
+    idbasedata = models.ForeignKey('AuthorBasedata', db_column='idBasedata')
+    idauthors = models.ForeignKey('Authors', db_column='idAuthors')
 
     class Meta:
         #managed = False

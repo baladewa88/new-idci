@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Affiliations, Urls, Keywords, Papers, Citations, Authors, Venues, AffiliasiRelasi
+from .models import Affiliations, Urls, Keywords, Papers, Citations, Authors, Venues, AffiliasiRelasi, AuthorBasedata, AuthorsRelasi
 from random import randint
 
 import time
@@ -76,6 +76,16 @@ class AuthorsAdmin(admin.ModelAdmin):
     fieldsets = [('Description',{'fields':['paperid','name','affil','address', 'email', 'ord']})]
     list_display = ('name','affil', )
     ordering = ('name',)
+
+class AuthorsBasedataAdmin(admin.ModelAdmin):
+    fieldsets = [('Description',{'fields':['namalengkap','affiliasi','alamat_affiliasi']})]
+    list_display = ('namalengkap','affiliasi','jumlahdokumen' )
+    ordering = ('namalengkap',)
+
+class AuthorRelasiAdmin(admin.ModelAdmin):
+    fieldsets = [('Description',{'fields':['idbasedata','idauthors']})]
+    list_display = ('idbasedata','idauthors' )
+    ordering = ('idbasedata',)
     
 admin.site.register(Papers, PapersAdmin)
 admin.site.register(Urls)
@@ -84,4 +94,6 @@ admin.site.register(Affiliations, AffiliasiAdmin)
 admin.site.register(Citations, CitationsAdmin)
 admin.site.register(Authors, AuthorsAdmin)
 admin.site.register(Venues)
+admin.site.register(AuthorBasedata, AuthorsBasedataAdmin)
+admin.site.register(AuthorsRelasi, AuthorRelasiAdmin)
 

@@ -97,7 +97,6 @@ def publisherlist(request, data):
     for cPub in pubLists:
         global hitung
         hitung = Affiliations.objects.filter(pk=cPub.id).count()
-        
           
     return render(request, 'idci/publisher.html', {'publisher': pubLists, 'form':form, 'pap':hitung })
 
@@ -181,10 +180,10 @@ def mergeaffhasil(request, penulis, affiliasi, judul):
     new_entry.save()
 
 def authorlist(request, nama):
-    author = Authors.objects.filter(name=nama).order_by('id')
+    author = AuthorsBasedata.objects.filter(namalengkap__icontains=nama).order_by('namalengkap')
                                          
     for a in author:
-        print ("paperid based on author > "+str(a.paperid))
-        cite = Papers.objects.filter(title=a.paperid)
+        print ("paperid based on author > "+str(a.namalengkap))
+        jumlahPaper = AuthorsRelasi.objects.filter(idbasedata=a.id).count()
 
-    return render(request, 'idci/authorlist.html', {'lists': cite})
+    return render(request, 'idci/authorlist.html', {'lists': cite, 'pap':jumlahPaper,})
