@@ -7,6 +7,7 @@ from .models import Papers, Authors, Keywords, Citations, Urls, Affiliations, Me
 
 # Create your views here.
 hitung =0
+
 def index(request):
     form = NameForm()
     forma = AuthorForm()
@@ -55,9 +56,14 @@ def paperlist(request, data):
     else:
         form = NameForm()
         
-    paperLists = Papers.objects.filter(title__icontains=data)
-          
-    return render(request, 'idci/title.html', {'list': paperLists, 'form':form })
+    paperLists = Papers.objects.select_related('venue').filter(title__icontains=data)
+    #print(paperLists.query)
+
+    for idpenulis in paperLists:
+        authorLists = Authors.objects.select_related('paperid').filter(paperid=idpenulis.id)
+        print(authorLists.query)
+
+    return render(request, 'idci/title.html', {'list': paperLists, 'form':form, 'penulis':authorLists })
 
 def get_publisher(request):
     # if this is a POST request we need to process the form data
@@ -94,6 +100,7 @@ def publisherlist(request, data):
         form = AfiliasiForm()
         
     pubLists = Affiliations.objects.filter(name__icontains=data)
+    
     for cPub in pubLists:
         global hitung
         hitung = Affiliations.objects.filter(pk=cPub.id).count()
@@ -157,7 +164,7 @@ def paperdetail(request, pk, judul):
     
     return render(request, 'idci/detail.html', {'paperdetail': detailPaper, 'keyword':key, 'ref':ref, 'author':author, 'title':cite, 'cited':citedd, 'url':dl})
 
-def merge_aff(request):
+def merge_aff(request, data):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:

@@ -16,13 +16,12 @@
 <br />
 <h2>Search Result</h2>
 <ul class="list-group">
+
 {% for obj in list %}
 <li class="list-group-item"> 
-<a href="{% url "paperdetail" pk=obj.pk judul=obj.title %}"><h3>{{ obj.title|upper }}</h3></a> <br />
-{% for aut in authorlist %}
-	{{ aut.name }}
-{% endfor %}
-{{ obj.venue }}, Volume {{ obj.volume }},Number {{ obj.number }}. {{ obj.year }}, {{ obj.pages }} pages <br /> 
+<a href=""><h3>{{ obj.title|upper }}</h3></a> <br />
+<br />
+{{ obj.venue.name }} {{ obj.venue.type }}, Volume {{ obj.volume }},Number {{ obj.number }}. {{ obj.year }}, {{ obj.pages }} pages <br /> 
 Citation : {{ obj.ncites}} times : Selfcites : {{ obj.selfCites}} times <br />
 ISBN / ISSN : {{ obj.kodebuku}}, Publisher : {{ obj.publisher}}, {{ obj.pubAddress}}
 <br />
@@ -30,6 +29,9 @@ ISBN / ISSN : {{ obj.kodebuku}}, Publisher : {{ obj.publisher}}, {{ obj.pubAddre
 <a href="{% url "merge_aff" %}" class="btn btn-primary">Request Merging Affiliation</a> <br />
 
 </li>
+{% endfor %}
+{% for aut in penulis %}
+	{{ aut.name }}, 
 {% endfor %}
 </ul>
 
