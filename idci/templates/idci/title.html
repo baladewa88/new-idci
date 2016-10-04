@@ -20,19 +20,20 @@
 {% for obj in list %}
 <li class="list-group-item"> 
 <a href=""><h3>{{ obj.title|upper }}</h3></a> <br />
+{% for aut in penulis %}
+	{{ aut.name }}, 
+{% endfor %}
 <br />
 {{ obj.venue.name }} {{ obj.venue.type }}, Volume {{ obj.volume }},Number {{ obj.number }}. {{ obj.year }}, {{ obj.pages }} pages <br /> 
 Citation : {{ obj.ncites}} times : Selfcites : {{ obj.selfCites}} times <br />
 ISBN / ISSN : {{ obj.kodebuku}}, Publisher : {{ obj.publisher}}, {{ obj.pubAddress}}
 <br />
 
-<a href="{% url "merge_aff" %}" class="btn btn-primary">Request Merging Affiliation</a> <br />
+<a href="{% url "merge_aff" judul=obj.title %}" class="btn btn-primary">Request Merging Affiliation</a> <br />
 
 </li>
 {% endfor %}
-{% for aut in penulis %}
-	{{ aut.name }}, 
-{% endfor %}
+
 </ul>
 
 {% endblock %}

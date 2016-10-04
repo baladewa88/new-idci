@@ -310,8 +310,8 @@ class Venues(models.Model):
 class MergingAffiliasi(models.Model):
     #id = models.BigIntegerField(primary_key=True)
     judulpaper = models.TextField(db_column='judulPaper')  # Field name made lowercase.
-    namapenulis = models.TextField(db_column='namaPenulis')  # Field name made lowercase.
-    namaaffiliasi = models.TextField(db_column='namaAffiliasi')  # Field name made lowercase.
+    namapenulis = models.CharField(max_length=255, db_column='namaPenulis')  # Field name made lowercase.
+    namaaffiliasi = models.CharField(max_length=255, db_column='namaAffiliasi')  # Field name made lowercase.
     status = models.TextField()
 
     class Meta:

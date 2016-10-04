@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, render_to_response
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 
 from .forms import NameForm, AuthorForm, AfiliasiForm, AfiliasiMerging
 
@@ -58,12 +59,21 @@ def paperlist(request, data):
         
     paperLists = Papers.objects.select_related('venue').filter(title__icontains=data)
     #print(paperLists.query)
+    arraypaper = []
+    for r in paperLists:
+        arraypaper.append(paperLists)
+    #authorLists=[]
+   
+    #i = 0
+    for i in range(len(arraypaper)):
+        arraypaper.append([])
+        for idpenulis in paperLists:
+            arraypaper[i] = Authors.objects.select_related('paperid').filter(paperid=idpenulis.id)
+            print(arraypaper)
 
-    for idpenulis in paperLists:
-        authorLists = Authors.objects.select_related('paperid').filter(paperid=idpenulis.id)
-        print(authorLists.query)
-
-    return render(request, 'idci/title.html', {'list': paperLists, 'form':form, 'penulis':authorLists })
+        # +=1
+        
+    return render(request, 'idci/title.html', {'list': paperLists, 'form':form })
 
 def get_publisher(request):
     # if this is a POST request we need to process the form data
@@ -164,10 +174,11 @@ def paperdetail(request, pk, judul):
     
     return render(request, 'idci/detail.html', {'paperdetail': detailPaper, 'keyword':key, 'ref':ref, 'author':author, 'title':cite, 'cited':citedd, 'url':dl})
 
-def merge_aff(request, data):
+def merge_aff(request, judul):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
+      
         forma = AfiliasiMerging (request.POST)
         # check whether it's valid:
         
@@ -175,16 +186,26 @@ def merge_aff(request, data):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            return HttpResponseRedirect('/mergeaffhasil/'+forma.cleaned_data['author']+"/"+forma.cleaned_data['afiliasi']+forma.cleaned_data['paper'])
+            post = forma.save(commit=False)
+            post.namapenulis = forma.cleaned_data['namapenulis']
+            post.namaaffiliasi = forma.cleaned_data['namaaffiliasi']
+            post.judulpaper = judul
+            post.status = "Sedang di Proses"
+            post.save()
+
+            #return HttpResponseRedirect('/index.html/')
+            return HttpResponseRedirect('/mergeaffhasil/'+forma.cleaned_data['namapenulis']+"/"+forma.cleaned_data['namaaffiliasi']+judul)
 
     else:
         forma = AfiliasiMerging()
 
-    return render(request, 'idci/merge_aff.html', {'forma':forma})
+    return render(request, 'idci/merge_aff.html', {'forma':forma, 'judul':judul})
 
 def mergeaffhasil(request, penulis, affiliasi, judul):
-    new_entry = MergingAffiliasi(judulpaper=judul, namapenulis=penulis, namaaffiliasi=affiliasi, status="Sedang diproses")
-    new_entry.save()
+    #new_entry = MergingAffiliasi(judulpaper=judul, namapenulis=penulis, namaaffiliasi=affiliasi, status="Sedang diproses")
+    #new_entry.save()
+
+    return render(request, 'idci/thanks.html', {'judul':judul, 'penulis':penulis, 'aff':affiliasi})
 
 def authorlist(request, nama):
     author = AuthorsBasedata.objects.filter(namalengkap__icontains=nama).order_by('namalengkap')
