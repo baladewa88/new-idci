@@ -47,10 +47,10 @@ class PapersAdmin(admin.ModelAdmin):
     
 class CitationsAdmin(admin.ModelAdmin):
     fieldsets = [('Description',{'fields':['title','authors','venue', 'year', 'pages', 'editors', 'volume', 'number', 'paperid', 'self', 'publisher','pubaddress']})]
-    list_filter = ('authors'),('publisher')
+    #list_filter = ('year'),
     list_display = ('id','title','authors')
     ordering = ('authors',)
-    search_fields = ['title']
+    search_fields = ['title', 'authors',]
 
     def save_model(self, request, obj, form, change):
         print(obj.id)
