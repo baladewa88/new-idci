@@ -307,6 +307,21 @@ class Venues(models.Model):
     def __str__(self):
         return self.name
 
+class MergingAuthor(models.Model):
+    #id = models.BigIntegerField(primary_key=True)
+    judulpaper = models.TextField(db_column='judulPaper')  # Field name made lowercase.
+    namapenulis = models.TextField(db_column='namaPenulis')  # Field name made lowercase.
+    status = models.TextField()
+    email = models.TextField(db_column='email_author')  # Field name made lowercase.
+    penulisbasedata = models.TextField(db_column='penulisBasedata')  # Field name made lowercase.
+    
+    class Meta:
+        #managed = False
+        db_table = 'merging_author'
+        
+    def __str__(self):
+        return self.namapenulis
+        
 class MergingAffiliasi(models.Model):
     #id = models.BigIntegerField(primary_key=True)
     judulpaper = models.TextField(db_column='judulPaper')  # Field name made lowercase.
@@ -317,3 +332,7 @@ class MergingAffiliasi(models.Model):
     class Meta:
         #managed = False
         db_table = 'merging_affiliasi'
+
+    def __str__(self):
+        return self.judulpaper
+

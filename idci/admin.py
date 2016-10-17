@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Affiliations, Urls, Keywords, Papers, Citations, Authors, Venues, AffiliasiRelasi, AuthorBasedata, AuthorsRelasi
+from .models import Affiliations, Urls, Keywords, Papers, Citations, Authors, Venues, AffiliasiRelasi, AuthorBasedata, AuthorsRelasi, MergingAffiliasi, MergingAuthor
 from random import randint
 
 import time
@@ -96,4 +96,6 @@ admin.site.register(Authors, AuthorsAdmin)
 admin.site.register(Venues)
 admin.site.register(AuthorBasedata, AuthorsBasedataAdmin)
 admin.site.register(AuthorsRelasi, AuthorRelasiAdmin)
+admin.site.register(MergingAffiliasi )
+admin.site.register(MergingAuthor)
 

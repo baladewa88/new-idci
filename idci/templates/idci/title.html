@@ -29,7 +29,9 @@ Citation : {{ obj.ncites}} times : Selfcites : {{ obj.selfCites}} times <br />
 ISBN / ISSN : {{ obj.kodebuku}}, Publisher : {{ obj.publisher}}, {{ obj.pubAddress}}
 <br />
 
-<a href="{% url "merge_aff" judul=obj.title %}" class="btn btn-primary">Request Merging Affiliation</a> <br />
+<a href="{% url "merge_aff" judul=obj.title %}" class="btn btn-primary">Request Merging Affiliation</a> 
+<a href="{% url "merge_aut" judul=obj.title %}" class="btn btn-primary">Claim Paper</a> <br />
+
 
 </li>
 {% endfor %}

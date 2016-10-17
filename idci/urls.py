@@ -13,7 +13,8 @@ urlpatterns = [
     url(r'^resultaff/(?P<data>.+)/$', views.publisherlist, name='resultpub'),
     url(r'^paper/(?P<pk>\S+)/(?P<judul>.+)/$', views.paperdetail, name='paperdetail'),
     url(r'^mergeaff/(?P<judul>.+)/$', views.merge_aff, name='merge_aff'),
-    url(r'^mergeaffhasil/(?P<judul>\w.)/(?P<penulis>\w+)/(?P<affiliasi>\w+)/$', views.mergeaffhasil, name='mergeaffhasil'),
+    url(r'^mergeaut/(?P<judul>.+)/$', views.merge_aut, name='merge_aut'),
+    url(r'^mergeaffhasil/$', views.mergeaffhasil, name='mergeaffhasil'),
     url(r'^author/(?P<nama>.+)/$', views.authorlist, name='authorlist'),
     
 ]

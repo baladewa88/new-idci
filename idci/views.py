@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, render_to_response
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 
-from .forms import NameForm, AuthorForm, AfiliasiForm, AfiliasiMerging
+from .forms import NameForm, AuthorForm, AfiliasiForm, AfiliasiMerging, AuthorMerging
 
 from .models import Papers, Authors, Keywords, Citations, Urls, Affiliations, MergingAffiliasi
 
@@ -194,18 +194,43 @@ def merge_aff(request, judul):
             post.save()
 
             #return HttpResponseRedirect('/index.html/')
-            return HttpResponseRedirect('/mergeaffhasil/'+forma.cleaned_data['namapenulis']+"/"+forma.cleaned_data['namaaffiliasi']+judul)
+            return HttpResponseRedirect('/mergeaffhasil/')
 
     else:
         forma = AfiliasiMerging()
 
     return render(request, 'idci/merge_aff.html', {'forma':forma, 'judul':judul})
 
-def mergeaffhasil(request, penulis, affiliasi, judul):
+def merge_aut(request, judul):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+      
+        formas = AuthorMerging (request.POST)
+        # check whether it's valid:
+        
+        if formas.is_valid():
+            post = formas.save(commit=False)
+            post.namapenulis = formas.cleaned_data['namapenulis']
+            post.penulisbasedata = formas.cleaned_data['penulisbasedata']
+            post.email = formas.cleaned_data['email']
+            post.judulpaper = judul
+            post.status = "Sedang di Proses"
+            post.save()
+
+            #return HttpResponseRedirect('/index.html/')
+            return HttpResponseRedirect('/mergeaffhasil/')
+
+    else:
+        formas = AuthorMerging()
+
+    return render(request, 'idci/merge_aut.html', {'formas':formas, 'judul':judul})
+
+def mergeaffhasil(request, ):
     #new_entry = MergingAffiliasi(judulpaper=judul, namapenulis=penulis, namaaffiliasi=affiliasi, status="Sedang diproses")
     #new_entry.save()
 
-    return render(request, 'idci/thanks.html', {'judul':judul, 'penulis':penulis, 'aff':affiliasi})
+    return render(request, 'idci/thanks.html', {})
 
 def authorlist(request, nama):
     author = AuthorsBasedata.objects.filter(namalengkap__icontains=nama).order_by('namalengkap')

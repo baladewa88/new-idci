@@ -1,0 +1,36 @@
+{% extends "idci/index.html" %}
+
+{% block title %}IDCI | Paper Search IDCI{% endblock %}
+
+{% block content %}
+   <form method="post">
+
+		<div>
+		<h2>Claim Paper's Author</label></h2> <br /><br />
+		You want to request Affiliation Merge for <b>{{ judul }}</b>
+		<br /><br />
+		{% csrf_token %}
+		{{ formas }}
+		</div>
+		<br /><br />
+		<input type="submit" value="Submit Request" class="btn btn-primary btn-md"/>
+	</form>	
+
+
+{% endblock %}
+
+{% block rightbar %}
+
+{% endblock %}
+
+{% block middletext %}
+{% endblock %}
+
+{% block topleft %}
+{% endblock %}
+
+{% block topmid %}
+{% endblock %}
+
+{% block topright %}
+{% endblock %}
