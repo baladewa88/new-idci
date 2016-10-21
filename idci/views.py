@@ -157,13 +157,15 @@ def listauthor(request, data):
     return render(request, 'idci/author.html', {'author': authorLists, 'form':form })
 
 def paperdetail(request, pk, judul):
-    detailPaper = get_object_or_404(Papers,pk=pk)
+    #detailPaper = get_object_or_404(Papers,pk=pk)
+    detailPaper = Papers.objects.select_related('venue').get(pk=pk)
     key = Keywords.objects.filter(paperid=pk).order_by('id')
     ref = Citations.objects.filter(paperid=pk).order_by('id')
     author = Authors.objects.filter(paperid=pk).order_by('id')
     citedd = Citations.objects.filter(title=judul).order_by('id')
     cite = ""
-    
+    venueType = detailPaper.venue.type
+
     for c in citedd:
         cited = Papers.objects.filter(id=c.paperid).order_by('id')
                                                              
@@ -172,7 +174,7 @@ def paperdetail(request, pk, judul):
             
     dl = Urls.objects.get(paperid=pk)
     
-    return render(request, 'idci/detail.html', {'paperdetail': detailPaper, 'keyword':key, 'ref':ref, 'author':author, 'title':cite, 'cited':citedd, 'url':dl})
+    return render(request, 'idci/detail.html', {'paperdetail': detailPaper, 'keyword':key, 'ref':ref, 'author':author, 'title':cite, 'cited':citedd, 'url':dl, 'venueType':venueType})
 
 def merge_aff(request, judul):
     # if this is a POST request we need to process the form data

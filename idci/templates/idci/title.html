@@ -19,7 +19,7 @@
 
 {% for obj in list %}
 <li class="list-group-item"> 
-<a href=""><h3>{{ obj.title|upper }}</h3></a> <br />
+<a href="{% url "paperdetail" judul=obj.title pk=obj.pk %}"><h3>{{ obj.title|upper }}</h3></a> <br />
 {% for aut in penulis %}
 	{{ aut.name }}, 
 {% endfor %}
