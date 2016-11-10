@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -138,10 +139,26 @@
 	
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h1 class="panel-title">About IDCI</h1>
+					<h1 class="panel-title">Statistic IDCI</h1>
 				</div>
-				<div class="panel-body">Indonesia Data Citation Index (IDCI) are application which delivering access to journal and citation information from Indonesia literature in different journal, proceeding and conference<br /><br />
-				You can search any science article from hundred scholar from Indonesia from different affiliation.</div>
+				<div class="panel-body">
+					Total Articles : {{ paperSum }}<br />
+					Total Journals : {{ journalSum }} <br />
+					Total Authors : {{ authorSum }}<br />
+				</div>
+			</div>
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h1 class="panel-title">Top Cited Papers</h1>
+				</div>
+				<div class="panel-body">
+					<ol>
+					{% for cited in citedPaper %}
+						<li><a href="{% url "paperdetail" judul=cited.title pk=cited.pk %}">{{ cited.title|upper }}</a> <br /></li> 
+					{% endfor %}
+					</ol>
+				</div>
 			</div>
 
             {% endblock %}

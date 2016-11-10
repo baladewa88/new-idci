@@ -21,7 +21,7 @@
 <li class="list-group-item"> 
 <a href="{% url "paperdetail" judul=obj.title pk=obj.pk %}"><h3>{{ obj.title|upper }}</h3></a> <br />
 {% for aut in penulis %}
-	{{ aut.name }}, 
+	{{ aut.Authors.name }}, 
 {% endfor %}
 <br />
 {{ obj.venue.name }} {{ obj.venue.type }}, Volume {{ obj.volume }},Number {{ obj.number }}. {{ obj.year }}, {{ obj.pages }} pages <br /> 

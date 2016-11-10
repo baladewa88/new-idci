@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 
 from .forms import NameForm, AuthorForm, AfiliasiForm, AfiliasiMerging, AuthorMerging
 
-from .models import Papers, Authors, Keywords, Citations, Urls, Affiliations, MergingAffiliasi
+from .models import Papers, Authors, Keywords, Citations, Urls, Affiliations, MergingAffiliasi, AuthorBasedata, Venues
 
 # Create your views here.
 hitung =0
@@ -13,7 +13,13 @@ def index(request):
     form = NameForm()
     forma = AuthorForm()
     formaf = AfiliasiForm()
-    return render(request, 'idci/index.html', {'form':form,'forma':forma,'formaf':formaf,})
+    countPaper = Papers.objects.all().count();
+    countAuthor = Authors.objects.all().count();
+    countSource = Venues.objects.all().count();
+
+    citedPaper = Papers.objects.order_by('ncites')[:5]
+
+    return render(request, 'idci/index.html', {'form':form,'forma':forma,'formaf':formaf,'paperSum':countPaper, 'authorSum':countAuthor, 'journalSum':countSource, 'citedPaper':citedPaper})
 
 def analisa(request):
   
@@ -73,7 +79,7 @@ def paperlist(request, data):
 
         # +=1
         
-    return render(request, 'idci/title.html', {'list': paperLists, 'form':form })
+    return render(request, 'idci/title.html', {'list': paperLists, 'form':form, 'penulis':arraypaper})
 
 def get_publisher(request):
     # if this is a POST request we need to process the form data
@@ -242,3 +248,6 @@ def authorlist(request, nama):
         jumlahPaper = AuthorsRelasi.objects.filter(idbasedata=a.id).count()
 
     return render(request, 'idci/authorlist.html', {'lists': cite, 'pap':jumlahPaper,})
+
+def about (request):
+    return render(request, 'idci/about.html', {})

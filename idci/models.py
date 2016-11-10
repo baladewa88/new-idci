@@ -87,7 +87,7 @@ class Affiliations(models.Model):
 class AffiliasiRelasi(models.Model):
     #id = models.BigAutoField(primary_key=True)
     idaffiliasi = models.ForeignKey('Affiliations', db_column='idAffiliasi')  # Field name made lowercase.
-    idpaper = models.ForeignKey('Papers', db_column='idpaper')
+    idpaper = models.ForeignKey('Papers', db_column='idPaper')
 
     class Meta:
         #managed = False
@@ -312,7 +312,7 @@ class MergingAuthor(models.Model):
     judulpaper = models.TextField(db_column='judulPaper')  # Field name made lowercase.
     namapenulis = models.TextField(db_column='namaPenulis')  # Field name made lowercase.
     status = models.TextField()
-    email = models.TextField(db_column='email_author')  # Field name made lowercase.
+    email = models.TextField(db_column='email_author', default="")  # Field name made lowercase.
     penulisbasedata = models.TextField(db_column='penulisBasedata')  # Field name made lowercase.
     
     class Meta:
