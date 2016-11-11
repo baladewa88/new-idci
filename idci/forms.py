@@ -11,6 +11,14 @@ class AuthorForm(forms.Form):
 class AfiliasiForm(forms.Form):
     aff_name = forms.CharField(label='',widget=forms.TextInput(attrs={'class': 'form-control'}))
 
+class ContactForm(forms.Form):
+    contact_name = forms.CharField(required=True)
+    contact_email = forms.EmailField(required=True)
+    content = forms.CharField(
+        required=True,
+        widget=forms.Textarea
+    )
+
 class AfiliasiMerging(forms.ModelForm):
     #author = forms.CharField(label='Author\'s Name',widget=forms.TextInput(attrs={'class': 'form-control'}))
     #paper= forms.CharField(label='Article\'s Title ',widget=forms.TextInput(attrs={'class': 'form-control'}))

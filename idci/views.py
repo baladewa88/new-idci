@@ -2,9 +2,15 @@ from django.shortcuts import render, get_object_or_404, render_to_response
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 
-from .forms import NameForm, AuthorForm, AfiliasiForm, AfiliasiMerging, AuthorMerging
+from .forms import NameForm, AuthorForm, AfiliasiForm, AfiliasiMerging, AuthorMerging, ContactForm
 
 from .models import Papers, Authors, Keywords, Citations, Urls, Affiliations, MergingAffiliasi, AuthorBasedata, Venues
+
+# new imports that go at the top of the file
+from django.core.mail import EmailMessage
+from django.shortcuts import redirect
+from django.template import Context
+from django.template.loader import get_template
 
 # Create your views here.
 hitung =0
@@ -251,3 +257,44 @@ def authorlist(request, nama):
 
 def about (request):
     return render(request, 'idci/about.html', {})
+
+def contact(request):
+    form_class = ContactForm
+    
+
+    # new logic!
+    if request.method == 'POST':
+        form = form_class(data=request.POST)
+
+        if form.is_valid():
+            contact_name = request.POST.get(
+                'contact_name'
+            , '')
+            contact_email = request.POST.get(
+                'contact_email'
+            , '')
+            form_content = request.POST.get('content', '')
+
+            # Email the profile with the 
+            # contact information
+            template = get_template('contact_template.txt')
+            context = Context({
+                'contact_name': contact_name,
+                'contact_email': contact_email,
+                'form_content': form_content,
+            })
+            content = template.render(context)
+
+            email = EmailMessage(
+                "New contact form submission",
+                content,
+                "Your website" +'',
+                ['youremail@gmail.com'],
+                headers = {'Reply-To': contact_email }
+            )
+            email.send()
+            return redirect('contact')
+
+    return render(request, 'idci/contact.html', {
+        'form': form_class,
+    })

@@ -17,4 +17,5 @@ urlpatterns = [
     url(r'^mergeaffhasil/$', views.mergeaffhasil, name='mergeaffhasil'),
     url(r'^author/(?P<nama>.+)/$', views.authorlist, name='authorlist'),
     url(r'^about/?$', views.about, name='about'),
+    url(r'^contact/?$', views.contact, name='contact'),
 ]

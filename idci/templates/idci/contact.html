@@ -1,0 +1,29 @@
+{% extends "idci/index.html" %}
+
+{% block title %}IDCI | About IDCI{% endblock %}
+
+{% block content %}
+<h1>Contact</h1>
+<form role="form" action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}
+
+{% block rightbar %}
+
+{{paperdetail.abstract|linebreaks }}
+{% endblock %}
+
+{% block middletext %}
+{% endblock %}
+
+{% block topleft %}
+{% endblock %}
+
+{% block topmid %}
+{% endblock %}
+
+{% block topright %}
+{% endblock %}
