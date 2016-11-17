@@ -165,8 +165,10 @@ def listauthor(request, data):
         form = AuthorForm()
         
     authorLists = Authors.objects.filter(name__icontains=data)
+    authorListsCount = Authors.objects.filter(name__icontains=data).select_related('paperid')
+
           
-    return render(request, 'idci/author.html', {'author': authorLists, 'form':form })
+    return render(request, 'idci/author.html', {'author': authorLists, 'form':form, 'sum':authorListsCount })
 
 def paperdetail(request, pk, judul):
     #detailPaper = get_object_or_404(Papers,pk=pk)
@@ -247,13 +249,12 @@ def mergeaffhasil(request, ):
     return render(request, 'idci/thanks.html', {})
 
 def authorlist(request, nama):
-    author = AuthorsBasedata.objects.filter(namalengkap__icontains=nama).order_by('namalengkap')
+    author = Authors.objects.select_related('paperid').get(name=nama)
                                          
-    for a in author:
-        print ("paperid based on author > "+str(a.namalengkap))
-        jumlahPaper = AuthorsRelasi.objects.filter(idbasedata=a.id).count()
+    #for a in author:
+     #   jumlahPaper = AuthorsRelasi.objects.filter(idbasedata=a.id).count()
 
-    return render(request, 'idci/authorlist.html', {'lists': cite, 'pap':jumlahPaper,})
+    return render(request, 'idci/authorlist.html', {'lists': author})
 
 def about (request):
     return render(request, 'idci/about.html', {})
@@ -289,7 +290,7 @@ def contact(request):
                 "New contact form submission",
                 content,
                 "Your website" +'',
-                ['youremail@gmail.com'],
+                ['sutadi.triputra@gmail.com'],
                 headers = {'Reply-To': contact_email }
             )
             email.send()

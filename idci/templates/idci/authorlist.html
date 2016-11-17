@@ -7,7 +7,7 @@
 
 <ol>
 {% for list in lists %}
-<li><a href="{% url "paperdetail" pk=list.pk judul=list.namalengkap %}">{{ list.title }}</a><br />
+<li><a href="{% url "paperdetail" pk=list.pk judul=list.paperid %}">{{ list.name }}</a><br />
 Cited {{ list.ncites }} times
 <p class = "abstrak"> Abstract <br /><br />{{ list.abstract }}</p>
 </li>

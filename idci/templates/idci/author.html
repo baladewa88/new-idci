@@ -17,7 +17,13 @@
 
 <ol>
 {% for list in author %}
-<li><a href="{% url "authorlist" nama=list.name %}">{{ list.name }} | {{pap}}</a><br />
+<li><a href="{% url "authorlist" nama=list.name %}">{{ list.name }} |  paper</a><br />
+Affiliasi : {{ list.affil }} | {{ list.email }} 
+</li>
+{% endfor %}
+
+{% for list2 in sum %}
+<li><a href="{% url "authorlist" nama=list2.name %}">{{ list2.name }} | {{list2.paperid.title}} paper</a><br />
 Affiliasi : {{ list.affil }} | {{ list.email }} 
 </li>
 {% endfor %}
