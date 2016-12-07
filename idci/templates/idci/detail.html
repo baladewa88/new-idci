@@ -12,18 +12,58 @@ Author :
 </ol>
 <hr>
 <span class="glyphicon glyphicon-save"></span><a href="{{url.url}}">Download Paper</a> 
-<br /><br /><div class="abstrak"><h3>Abstract</h3><p>{{paperdetail.abstract|linebreaks }}</p></div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="abstrak"><h3>Abstract</h3><p>{{paperdetail.abstract|linebreaks }}</p></div>
 <br />
-Publisher : {{paperdetail.publisher }}
-<br />Index at {{paperdetail.crawldate|date:"d F Y G:i a" }}
-<br />Source Type : {{venueType}}
-<br />Source Title : {{paperdetail.venue}} {{paperdetail.pages}} pages. Vol. {{paperdetail.volume}} Number.{{paperdetail.number}} 
-<br />Citation : {{paperdetail.ncites}} | Self Citation : {{paperdetail.selfCites}}
-<hr><h3>Author Keywords </h3> 
-<br />{% for a in keyword %}
-{{ a.keyword }},
-{% endfor %}
-<hr>
+    </div>
+    <div class="col-sm-4">
+	
+      <div class="panel panel-default">
+				<div class="panel-heading">
+					<h1 class="panel-title">Paper's Information</h1>
+				</div>
+				<div class="panel-body">
+					
+					<div class="table-responsive">
+					  <table class="table">
+						<tr>
+							<td>Publisher </td>
+							<td>{{paperdetail.publisher }}</td>
+						</tr>
+						<tr>
+							<td>Index at </td>
+							<td>{{paperdetail.crawldate|date:"d F Y G:i a" }}</td>
+						</tr>
+						<tr>
+							<td>Source Type </td>
+							<td>{{venueType}}</td>
+						</tr>
+						<tr>
+							<td>Source Title </td>
+							<td>{{paperdetail.venue}} {{paperdetail.pages}} pages. Vol. {{paperdetail.volume}} Number.{{paperdetail.number}} </td>
+						</tr>
+						<tr>
+							<td>Cited </td>
+							<td>{{paperdetail.ncites}} times</td>
+						</tr>
+						<tr>
+							<td>Keywords </td>
+							<td>{% for a in keyword %}
+								{{ a.keyword }},
+								{% endfor %}
+							</td>
+						</tr>
+					  </table>
+					</div>
+					
+				</div>
+			</div>
+    </div>
+  </div>
+</div>
+
 <p>
 <h3>References </h3> <br>
 <ol>

@@ -70,22 +70,28 @@ def paperlist(request, data):
         form = NameForm()
         
     paperLists = Papers.objects.select_related('venue').filter(title__icontains=data)
+    listAuthorTemp = []
+
+    for a in paperLists:
+        AuthorList = Authors.objects.select_related('paperid').filter(paperid=a.id)
+        listAuthorTemp.append(AuthorList)
+        #print("Authorrrr")
+        #print(AuthorList)
     #print(paperLists.query)
-    arraypaper = []
-    for r in paperLists:
-        arraypaper.append(paperLists)
+    #arraypaper = []
+    #for r in paperLists:
+    #    arraypaper.append(paperLists)
     #authorLists=[]
    
     #i = 0
-    for i in range(len(arraypaper)):
-        arraypaper.append([])
-        for idpenulis in paperLists:
-            arraypaper[i] = Authors.objects.select_related('paperid').filter(paperid=idpenulis.id)
-            print(arraypaper)
-
-        # +=1
-        
-    return render(request, 'idci/title.html', {'list': paperLists, 'form':form, 'penulis':arraypaper})
+    #for i in range(len(arraypaper)):
+    #    arraypaper.append([])
+    #    for idpenulis in paperLists:
+    #        arraypaper = Authors.objects.select_related('paperid').filter(paperid=idpenulis.pk)
+    #        print(arraypaper)
+    #        print("ASASA => "+str(idpenulis.pk))
+   
+    return render(request, 'idci/title.html', {'list': paperLists, 'form':form, 'penulis':listAuthorTemp})
 
 def get_publisher(request):
     # if this is a POST request we need to process the form data
@@ -165,9 +171,17 @@ def listauthor(request, data):
         form = AuthorForm()
         
     authorLists = Authors.objects.filter(name__icontains=data)
-    authorListsCount = Authors.objects.filter(name__icontains=data).select_related('paperid')
+    #authorLists.append([])
+    i = 0
 
-          
+    authorListsCount = []
+    for cAut in authorLists:
+        authorListsCount.append(Authors.objects.filter(name__icontains=cAut.name).select_related('paperid').count())
+        i= i+1
+    
+   
+    print(authorListsCount)
+
     return render(request, 'idci/author.html', {'author': authorLists, 'form':form, 'sum':authorListsCount })
 
 def paperdetail(request, pk, judul):
@@ -242,15 +256,14 @@ def merge_aut(request, judul):
 
     return render(request, 'idci/merge_aut.html', {'formas':formas, 'judul':judul})
 
-def mergeaffhasil(request, ):
+def mergeaffhasil(request):
     #new_entry = MergingAffiliasi(judulpaper=judul, namapenulis=penulis, namaaffiliasi=affiliasi, status="Sedang diproses")
     #new_entry.save()
 
     return render(request, 'idci/thanks.html', {})
 
 def authorlist(request, nama):
-    author = Authors.objects.select_related('paperid').get(name=nama)
-                                         
+    author = Authors.objects.select_related('paperid').filter(id=nama)
     #for a in author:
      #   jumlahPaper = AuthorsRelasi.objects.filter(idbasedata=a.id).count()
 

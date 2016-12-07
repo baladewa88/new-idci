@@ -5,14 +5,27 @@
 {% block content %}
 <h2>Search Result</h2>
 
-<ol>
-{% for list in lists %}
-<li><a href="{% url "paperdetail" pk=list.pk judul=list.paperid %}">{{ list.name }}</a><br />
+<div class="table-responsive">
+					  <table class="table">
+						
+						{% for list in lists %}
+
+<tr>
+							<td>
+								<a href="{% url "paperdetail" pk=list.paperid.pk judul=list.paperid.title %}">{{ list.paperid.title }}</a><br />
 Cited {{ list.ncites }} times
 <p class = "abstrak"> Abstract <br /><br />{{ list.abstract }}</p>
-</li>
+							</td>
+						</tr>
 {% endfor %}
-</ol>
+
+						
+						
+					  </table>
+					  
+					
+					</div>
+
 
 
 {% endblock %}

@@ -15,20 +15,41 @@
     </form>
 <h2>Search Result</h2>
 
-<ol>
-{% for list in author %}
-<li><a href="{% url "authorlist" nama=list.name %}">{{ list.name }} |  paper</a><br />
-Affiliasi : {{ list.affil }} | {{ list.email }} 
-</li>
-{% endfor %}
+<div class="table-responsive">
+					  <table class="table">
+						
+						{% for list2 in author %}
+    
 
-{% for list2 in sum %}
-<li><a href="{% url "authorlist" nama=list2.name %}">{{ list2.name }} | {{list2.paperid.title}} paper</a><br />
-Affiliasi : {{ list.affil }} | {{ list.email }} 
-</li>
-{% endfor %}
-</ol>
 
+
+
+
+						<tr>
+							<td>
+								<a href="{% url "authorlist" nama=list2.pk %}">{{ list2.name }} </a>| 
+
+
+ paper<br />
+Affiliasi : {{ list2.affil }} | {{ list2.email }} 
+		
+							</td>
+						</tr>
+					
+{% endfor %}
+						
+					  </table>
+					  
+					  <table class="table">
+						
+						{% for aut in penulis %}
+							<tr><td>{{ aut.Authors.name }}<td></tr>
+						{% endfor %}
+						
+						
+					  </table>
+					</div>
+					
 
 {% endblock %}
 
