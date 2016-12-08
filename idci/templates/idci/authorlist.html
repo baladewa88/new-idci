@@ -4,17 +4,72 @@
 
 {% block content %}
 <h2>Search Result</h2>
-
-<div class="table-responsive">
+<div class="row">
+	<div class"col-sm-12 col-sm-12 col-md-12 col-lg-12">
+<div class="panel panel-default">
+				<div class="panel-heading">
+					<h1 class="panel-title">Author's Information</h1>
+				</div>
+				<div class="panel-body">
+					
+					<div class="table-responsive">
 					  <table class="table">
+
+						<tr>
+							<td>Full Name </td>
+							<td>{{penulis.name }}</td>
+						</tr>
+						<tr>
+							<td>Affiliations </td>
+							<td>{{penulis.affil }}</td>
+						</tr>
+						<tr>
+							<td>Email</td>
+							<td>{{penulis.email}}</td>
+						</tr>
+						<tr>
+							<td>Total Document </td>
+							<td>{{ totalPaper }}</td>
+						</tr>
+						<tr>
+							<td>Total Cited  </td>
+							<td>{{totalSitasi}} From {{totalDokSitasi}} papers</td>
+						</tr>
 						
+					  </table>
+					</div>
+					
+				</div>
+			</div>
+					</div>
+
+    <div class="col-sm-12 col-md-12 col-lg-12">
+<div class="table-responsive">
+
+					  <table class="table">
+						<tr>
+					  		<th>Title</th>
+					  		<th>Year</th>
+					  		<th>Source</th>
+					  		<th>Citation</th>
+					  	</tr>
+
 						{% for list in lists %}
 
 <tr>
 							<td>
-								<a href="{% url "paperdetail" pk=list.paperid.pk judul=list.paperid.title %}">{{ list.paperid.title }}</a><br />
-Cited {{ list.ncites }} times
-<p class = "abstrak"> Abstract <br /><br />{{ list.abstract }}</p>
+								<a href="{% url "paperdetail" pk=list.paperid.pk judul=list.paperid.title %}">{{ list.paperid.title }}</a>
+
+
+
+							</td>
+							<td>{{ list.paperid.year}} 
+							</td>
+
+							<td>{{ list.paperid.publisher}} {{ list.paperid.venue.type}} {{ list.paperid.venue}} volume. {{ list.paperid.volume}}, page {{ list.paperid.page}}
+
+							</td>
+							<td>{{ list.paperid.ncites }}
 							</td>
 						</tr>
 {% endfor %}
@@ -24,8 +79,8 @@ Cited {{ list.ncites }} times
 					  </table>
 					  
 					
-					</div>
-
+					</div></div>
+					
 
 
 {% endblock %}

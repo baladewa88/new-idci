@@ -7,7 +7,7 @@
 Author :
 <ol>
 {% for penulis in author %}
-<li><a href="{% url "authorlist" nama=penulis.name %}">{{ penulis.name }}</a>, {{ penulis.affil}} <a href="mailto:{{penulis.email}}"><span class="glyphicon glyphicon-envelope"></span></a> </li>
+<li><a href="{% url "authorlist" nama=penulis.pk %}">{{ penulis.name }}</a>, {{ penulis.affil}} <a href="mailto:{{penulis.email}}"><span class="glyphicon glyphicon-envelope"></span></a> </li>
 {% endfor %}
 </ol>
 <hr>

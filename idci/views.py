@@ -264,10 +264,24 @@ def mergeaffhasil(request):
 
 def authorlist(request, nama):
     author = Authors.objects.select_related('paperid').filter(id=nama)
+    dataAuthor = Authors.objects.get(id=nama)
+    totalPaper = Authors.objects.select_related('paperid').filter(id=nama).count()
+
+    totalSitasi = 0
+    totalDokSitasi = 0
+
+    for sum in author:
+        totalSitasi += sum.paperid.ncites 
+        if sum.paperid.ncites>0:
+            totalDokSitasi +=1
+
+
+    print("Total sitasi => "+str(totalSitasi))
+
     #for a in author:
      #   jumlahPaper = AuthorsRelasi.objects.filter(idbasedata=a.id).count()
 
-    return render(request, 'idci/authorlist.html', {'lists': author})
+    return render(request, 'idci/authorlist.html', {'lists': author, 'penulis': dataAuthor, 'totalPaper': totalPaper, 'totalSitasi':totalSitasi, 'totalDokSitasi':totalDokSitasi})
 
 def about (request):
     return render(request, 'idci/about.html', {})
