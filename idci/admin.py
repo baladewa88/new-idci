@@ -30,7 +30,7 @@ class PapersAdmin(admin.ModelAdmin):
     list_filter = ('crawldate'),('year')
     list_display = ('id','title','ncites')
     ordering = ('-crawldate',)
-    search_fields = ['title']
+    search_fields = ['title','id']
     
     def save_model(self, request, obj, form, change):
         currentTime = int(round(time.time() * 1000))+randint(0,99)

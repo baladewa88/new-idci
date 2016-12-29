@@ -32,7 +32,7 @@ class Papers(models.Model):
     conversiontrace = models.CharField(db_column='conversionTrace', max_length=255, blank=True, null=True)  # Field name made lowercase.
     selfcites = models.IntegerField(db_column='selfCites', default=0)  # Field name made lowercase.
     versiontime = models.DateTimeField(db_column='versionTime', default=timezone.now)  # Field name made lowercase.
-    #kodebuku = models.CharField(db_column='kodeBuku', max_length=10, verbose_name="ISSN / ISBN")  # Field name made lowercase.
+    kodebuku = models.CharField(db_column='kodeBuku', max_length=10, verbose_name="ISSN / ISBN", default="0")  # Field name made lowercase.
 
     class Meta:
         #managed = False

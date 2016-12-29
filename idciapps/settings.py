@@ -39,7 +39,18 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     #'crispy_forms',
     'idci',
+    #'haystack',
 )
+
+#HAYSTACK_CONNECTIONS = {
+ #   'default': {
+  #      'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+   #     'URL': 'http://127.0.0.1:8000/',
+    #    'INDEX_NAME': 'haystack',
+    #},
+#}'''
+
+# HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -85,8 +96,8 @@ WSGI_APPLICATION = 'idciapps.wsgi.application'
 
 DATABASES = {
     'default': {
-        #'NAME': 'newidci$default',
-        'NAME': 'newidci2',
+        'NAME': 'newidci$default',
+        #'NAME': 'newidci2',
         'ENGINE': 'django.db.backends.mysql',
         #'USER': 'root',
         'USER': 'newidci',

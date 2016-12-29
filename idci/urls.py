@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^adsearch/?$', views.search, name='search'),
+    url(r'^adsearch/?$', views.notes, name='search'),
     url(r'^report/?$', views.analisa, name='analisa'),
     url(r'^titlesearch/?$', views.get_name, name='name'),
     url(r'^result/(?P<data>.+)/$', views.paperlist, name='result'),

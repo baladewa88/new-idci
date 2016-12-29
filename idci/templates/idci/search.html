@@ -4,18 +4,16 @@
 
 {% block content %}
 
-    <form type="get" action=".">
-    <input type="text" name="q">
-    <button type="submit">Search</button>
-    </form>
+   <form method="post" action="">
 
-    {% for note in notes %}
-    <h1>{{ note.title }}</h1>
-    <p>
-        {{ note.abstract }}
-    </p>
-    {% endfor %}
-
+		<div>
+		
+		{% csrf_token %}
+		{{ forma }}
+		</div>
+		<br /><br />
+		<input type="submit" value="Search" class="btn btn-primary btn-md"/>
+	</form>	
 
 {% endblock %}
 

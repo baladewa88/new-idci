@@ -12,6 +12,9 @@ from django.shortcuts import redirect
 from django.template import Context
 from django.template.loader import get_template
 
+from .forms import PaperAdvancedSearchForm2
+
+
 # Create your views here.
 hitung =0
 
@@ -326,3 +329,33 @@ def contact(request):
     return render(request, 'idci/contact.html', {
         'form': form_class,
     })
+
+def notes(request):
+    #form = PaperAdvancedSearchForm(request.GET)
+    #notes = form.search()
+    #return render_to_response('search/search.html',{'notes':form})
+
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+      
+        forma =PaperAdvancedSearchForm2 (request.POST)
+        # check whether it's valid:
+        
+        if forma.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            post = forma.save(commit=False)
+            post.namapenulis = forma.cleaned_data['namapenulis']
+            post.namaaffiliasi = forma.cleaned_data['namaaffiliasi']
+            post.judulpaper = judul
+            post.status = "Sedang di Proses"
+            post.save()
+
+            #return HttpResponseRedirect('/index.html/')
+            return HttpResponseRedirect('/mergeaffhasil/')
+
+    else:
+        forma = PaperAdvancedSearchForm2()
+
+    return render(request, 'idci/search.html', {'forma':forma,})
