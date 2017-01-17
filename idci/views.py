@@ -193,17 +193,18 @@ def paperdetail(request, pk, judul):
     #detailPaper = get_object_or_404(Papers,pk=pk)
     detailPaper = Papers.objects.select_related('venue').get(pk=pk)
     key = Keywords.objects.filter(paperid=pk).order_by('id')
+
     ref = Citations.objects.filter(paperid=pk).order_by('id')
     author = Authors.objects.filter(paperid=pk).order_by('id')
     citedd = Citations.objects.filter(title=judul).order_by('id')
-    cite = ""
     venueType = detailPaper.venue.type
 
     for c in citedd:
         cited = Papers.objects.filter(id=c.paperid).order_by('id')
                                                              
     for a in key:
-        cite = Papers.objects.filter(title__icontains=a.keyword).order_by('id')
+        cite = Papers.objects.filter(id=a.paperid).order_by('id')
+        
             
     dl = Urls.objects.get(paperid=pk)
     

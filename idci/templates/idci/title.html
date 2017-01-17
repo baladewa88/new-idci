@@ -31,9 +31,14 @@
 								
 							
 {% load apps_tags %}
-										{% get_result_tag arg1 arg2 arg3 as result %}
 
-										
+									
+  {% for pen in penulis %}
+								       	 	{{ pen}}
+								        <br />
+						{% endfor %}		       
+								  
+								
 								<br />
 								{{ obj.venue.name }} {{ obj.venue.type }}, Volume {{ obj.volume }},Number {{ obj.number }}. {{ obj.year }}, {{ obj.pages }} pages <br /> 
 								Cited : {{ obj.ncites}} times &nbsp &nbsp &nbsp Selfcited : {{ obj.selfCites}} times <br />
@@ -50,12 +55,7 @@
 						
 					  </table>
 					  
-					  <table class="table">
-						
-						
-						
-						
-					  </table>
+					 
 					</div>
 					
 				</div>

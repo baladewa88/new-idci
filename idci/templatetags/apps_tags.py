@@ -1,8 +1,15 @@
 from django import template
-
+ 
 register = template.Library()
-
-@register.assignment_tag
-def get_result_tag(arg1, arg2, arg3):
-    "----"
-    return "response"
+ 
+def tdelta(value, arg):
+    if not value: 
+        td = 'kosong'
+    else:  
+        if arg: 
+            td = value + pret
+        else: 
+            td = value + prot 
+    print ("TD => "+td)
+    return td    
+register.filter('tdelta', tdelta)
