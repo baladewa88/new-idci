@@ -183,6 +183,7 @@ class Authors(models.Model):
     email = models.CharField(max_length=100, blank=True, null=True)
     ord = models.IntegerField(verbose_name="Author's Order")
     paperid = models.ForeignKey('Papers', db_column='paperid')
+    parentid = models.ForeignKey('AuthorBasedata', db_column='parentid')
 
     class Meta:
         #managed = False

@@ -75,9 +75,11 @@ def paperlist(request, data):
     paperLists = Papers.objects.select_related('venue').filter(title__icontains=data)
     listAuthorTemp = []
 
+
     for a in paperLists:
         AuthorList = Authors.objects.select_related('paperid').filter(paperid=a.id)
         listAuthorTemp.append(AuthorList)
+        print(listAuthorTemp)
         #print("Authorrrr")
         #print(AuthorList)
     #print(paperLists.query)

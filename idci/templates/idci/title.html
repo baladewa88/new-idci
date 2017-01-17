@@ -3,7 +3,7 @@
 {% block title %}IDCI | Paper Search IDCI{% endblock %}
 
 {% block content %}
-   <form action="/your-name/" method="post">
+   <form action="/titlesearch/" method="post">
 
 		<div>
 		<label for="id_subject" class="input_title">Article's Title</label>
@@ -23,13 +23,17 @@
 					<div class="table-responsive">
 					  <table class="table">
 						
-
+					  	
 						{% for obj in list %}
 						<tr>
 							<td>
 								<a href="{% url "paperdetail" judul=obj.title pk=obj.pk %}"><h4>{{ obj.title|upper }}</h4></a> 
 								
-								{{ obj.Authors.name }}
+							
+{% load apps_tags %}
+										{% get_result_tag arg1 arg2 arg3 as result %}
+
+										
 								<br />
 								{{ obj.venue.name }} {{ obj.venue.type }}, Volume {{ obj.volume }},Number {{ obj.number }}. {{ obj.year }}, {{ obj.pages }} pages <br /> 
 								Cited : {{ obj.ncites}} times &nbsp &nbsp &nbsp Selfcited : {{ obj.selfCites}} times <br />
@@ -48,9 +52,7 @@
 					  
 					  <table class="table">
 						
-						{% for aut in penulis %}
-							<tr><td>{{ aut.Authors.name }}<td></tr>
-						{% endfor %}
+						
 						
 						
 					  </table>

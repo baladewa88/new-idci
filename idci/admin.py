@@ -73,7 +73,7 @@ class AffiliasiAdmin(admin.ModelAdmin):
     ordering = ('name',)
 
 class AuthorsAdmin(admin.ModelAdmin):
-    fieldsets = [('Description',{'fields':['paperid','name','affil','address', 'email', 'ord']})]
+    fieldsets = [('Description',{'fields':['paperid','name','affil','address', 'email', 'ord', 'parentid']})]
     list_display = ('name','affil', )
     ordering = ('name',)
 
