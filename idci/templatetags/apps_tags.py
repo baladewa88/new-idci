@@ -1,15 +1,19 @@
 from django import template
  
 register = template.Library()
- 
+
 def tdelta(value, arg):
-    if not value: 
-        td = 'kosong'
-    else:  
-        if arg: 
-            td = value + pret
-        else: 
-            td = value + prot 
-    print ("TD => "+td)
-    return td    
+	tds=[]
+	if not value:
+		td = 'kosong'
+	else:
+		if arg: 
+			td = "haha" 
+			tds = value[arg]
+		else: 
+			td = "hihi" + "prot" 
+
+	print ("TD => "+td)
+	return tds
+
 register.filter('tdelta', tdelta)

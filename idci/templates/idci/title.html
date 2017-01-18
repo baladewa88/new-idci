@@ -29,15 +29,15 @@
 							<td>
 								<a href="{% url "paperdetail" judul=obj.title pk=obj.pk %}"><h4>{{ obj.title|upper }}</h4></a> 
 								
-							
-{% load apps_tags %}
+						{% load apps_tags %}
+  						{% for pen in penulis|tdelta:forloop.counter0 %}
+								       	 	
+    
+								        <a href="{% url "authorlist" nama=pen %}">{{ pen }}</a>,
 
-									
-  {% for pen in penulis %}
-								       	 	{{ pen}}
-								        <br />
-						{% endfor %}		       
-								  
+								       
+							       
+								  {% endfor %}
 								
 								<br />
 								{{ obj.venue.name }} {{ obj.venue.type }}, Volume {{ obj.volume }},Number {{ obj.number }}. {{ obj.year }}, {{ obj.pages }} pages <br /> 
