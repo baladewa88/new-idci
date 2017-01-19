@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 
 from .forms import NameForm, AuthorForm, AfiliasiForm, AfiliasiMerging, AuthorMerging, ContactForm
 
-from .models import Papers, Authors, Keywords, Citations, Urls, Affiliations, MergingAffiliasi, AuthorBasedata, Venues
+from .models import Papers, Authors, Keywords, Citations, Urls, Affiliations, MergingAffiliasi, AuthorBasedata, Venues, AffiliasiRelasi
 
 # new imports that go at the top of the file
 from django.core.mail import EmailMessage
@@ -134,10 +134,12 @@ def publisherlist(request, data):
         
     pubLists = Affiliations.objects.filter(name__icontains=data)
     
+    hitung = []
     for cPub in pubLists:
-        global hitung
-        hitung = Affiliations.objects.filter(pk=cPub.id).count()
-          
+        
+        hitung.append(AffiliasiRelasi.objects.filter(idaffiliasi=cPub.id).count())
+        print (hitung)
+
     return render(request, 'idci/publisher.html', {'publisher': pubLists, 'form':form, 'pap':hitung })
 
 
@@ -191,6 +193,7 @@ def listauthor(request, data):
 
 def paperdetail(request, pk, judul):
     #detailPaper = get_object_or_404(Papers,pk=pk)
+    forma = AuthorForm()
     detailPaper = Papers.objects.select_related('venue').get(pk=pk)
     key = Keywords.objects.filter(paperid=pk).order_by('id')
 
@@ -208,7 +211,7 @@ def paperdetail(request, pk, judul):
             
     dl = Urls.objects.get(paperid=pk)
     
-    return render(request, 'idci/detail.html', {'paperdetail': detailPaper, 'keyword':key, 'ref':ref, 'author':author, 'title':cite, 'cited':citedd, 'url':dl, 'venueType':venueType})
+    return render(request, 'idci/detail.html', {'forma':forma, 'paperdetail': detailPaper, 'keyword':key, 'ref':ref, 'author':author, 'title':cite, 'cited':citedd, 'url':dl, 'venueType':venueType})
 
 def merge_aff(request, judul):
     # if this is a POST request we need to process the form data

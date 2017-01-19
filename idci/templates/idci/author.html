@@ -3,16 +3,16 @@
 {% block title %}IDCI | Author Search IDCI{% endblock %}
 
 {% block content %}
-<form method="GET" action="asearch" class="post-form">
-        <table>
-            {{ form.as_p }}
-            <tr>
-                <td colspan=2>
-                    <input type="submit" value="Search" class="save	btn	btn-default">
-                </td>
-            </tr>
-        </table>
-    </form>
+<form action="/authorsearch/" method="post">
+
+			<div>
+			<label for="id_subject" class="input_title">Author's Name</label>
+			{% csrf_token %}
+			{{ forma }}
+			</div>
+			<br /><br />
+			<input type="submit" value="Search" class="btn btn-primary btn-md"/>
+		</form>	
 <h2>Search Result</h2>
 
 <div class="table-responsive">
@@ -29,7 +29,10 @@
 							<td>
 								<a href="{% url "authorlist" nama=list2.pk %}">{{ list2.name }} </a>| 
 
-
+{% load apps_tags %}
+  						
+{{ sum|tauthor:forloop.counter0 }}
+  						
  paper<br />
 Affiliasi : {{ list2.affil }} | {{ list2.email }} 
 		

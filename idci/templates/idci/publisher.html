@@ -3,34 +3,66 @@
 {% block title %}IDCI | Paper Search IDCI{% endblock %}
 
 {% block content %}
-<form method="GET" action="psearch" class="post-form">
-        <table>
-            {{ form.as_p }}
-            <tr>
-                <td colspan=2>
-                    <input type="submit" value="Search" class="save	btn	btn-default">
-                </td>
-            </tr>
-        </table>
-    </form>
-	
-<h2>Search Result</h2>
+ <form action="/affsearch/" method="post">
 
-<ol>
-<ol>
-{% for list in publisher %}
-<li>{{ list.name }} | {{pap}}<br />
-Affiliasi : {{ list.affil }} | {{ list.email }} 
-</li>
+            <div>
+            <label for="id_subject" class="input_title">Affiliation's Name</label>
+            {% csrf_token %}
+            {{ formaf }}
+            </div>
+            <br /><br />
+            <input type="submit" value="Search" class="btn btn-primary btn-md"/>
+        </form> 
+
+<br />
+<div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1 class="panel-title">Search Result</h1>
+                </div>
+                <div class="panel-body">
+                    
+                    <div class="table-responsive">
+
+                      <table class="table">
+                        <tr>
+                            <th class="text-center">Name</th>
+                            <th class="text-center">Documents</th>
+                            <th class="text-center">Authors</th>
+                            <th class="text-center">Cited Document</th>
+                        </tr>
+
+                        {% for list in publisher %}
+
+<tr>
+                            <td>
+                                <a href="">{{ list.name }}</a>
+
+
+
+                            </td>
+                            {% load apps_tags %}
+                            <td class="text-center">{{ pap|taff:forloop.counter0 }} 
+                            </td>
+
+                            <td class="text-center">                1            </td>
+                            <td class="text-center">1
+                            </td>
+                        </tr>
 {% endfor %}
-</ol>
 
-
+                        
+                        
+                      </table>
+                      
+                    
+                    </div>
+                    
+                </div>
+            </div>
 {% endblock %}
 
 {% block rightbar %}
-<h2>Related Paper :</h2><br><br>
-{{paperdetail.abstract|linebreaks }}
+
 {% endblock %}
 
 {% block middletext %}
