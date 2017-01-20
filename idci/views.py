@@ -26,7 +26,7 @@ def index(request):
     countAuthor = Authors.objects.all().count();
     countSource = Venues.objects.all().count();
 
-    citedPaper = Papers.objects.order_by('ncites')[:5]
+    citedPaper = Papers.objects.order_by('-ncites')[:5]
 
     return render(request, 'idci/index.html', {'form':form,'forma':forma,'formaf':formaf,'paperSum':countPaper, 'authorSum':countAuthor, 'journalSum':countSource, 'citedPaper':citedPaper})
 
@@ -142,6 +142,14 @@ def publisherlist(request, data):
 
     return render(request, 'idci/publisher.html', {'publisher': pubLists, 'form':form, 'pap':hitung })
 
+def afflist(request, nama):
+    #aff = Affiliations.objects.filter(name=nama).order_by('ndocs')
+                                         
+   # for a in aff:
+    affs = AffiliasiRelasi.objects.select_related('idpaper').filter(idaffiliasi=nama)
+    print(affs)
+
+    return render(request, 'idci/publisherlist.html', {'lists': affs})
 
 def get_authorname(request):
     # if this is a POST request we need to process the form data

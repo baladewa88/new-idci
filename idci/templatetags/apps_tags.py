@@ -9,7 +9,7 @@ def tdelta(value, arg):
 	else:
 		if arg: 
 			td = "haha" 
-			tds = value[arg]
+			tds = value[arg-1]
 		else: 
 			td = "hihi" + "prot" 
 
@@ -25,7 +25,7 @@ def tauthor(value, arg):
 	else:
 		if arg: 
 			td = "haha" 
-			tds = value[arg]
+			tds = value[arg-1]
 		else: 
 			td = "hihi" + "prot" 
 
@@ -41,7 +41,7 @@ def taff(value, arg):
 	else:
 		if arg: 
 			td = "haha" 
-			tds = value[arg]
+			tds = value[arg-1]
 		else: 
 			td = "hihi" + "prot" 
 

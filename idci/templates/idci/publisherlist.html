@@ -1,18 +1,82 @@
-{% extends "idciapp/index.html" %}
+{% extends "idci/index.html" %}
 
-{% block title %}IDCI | Affiliations Search IDCI{% endblock %}
+{% block title %}IDCI | Affiliation Search IDCI{% endblock %}
 
 {% block content %}
 <h2>Search Result</h2>
+<div class="row">
+	<div class"col-sm-12 col-sm-12 col-md-12 col-lg-12">
+<div class="panel panel-default">
+				<div class="panel-heading">
+					<h1 class="panel-title">Affiliation's Information</h1>
+				</div>
+				<div class="panel-body">
+					
+					<div class="table-responsive">
+					  <table class="table">
 
-<ol>
-{% for list in lists %}
-<li><a href="">{{ list.title }}</a><br />
-Cited {{ list.ncites }} times
-<p class = "abstrak"> Abstract <br /><br />{{ list.abstract }}</p>
-</li>
+						<tr>
+							<td>Affiliation's Name </td>
+							<td>{{penulis.name }}</td>
+						</tr>
+						<tr>
+							<td>Address </td>
+							<td>{{penulis.affil }}</td>
+						</tr>
+						<tr>
+							<td>Total Document </td>
+							<td>{{ totalPaper }}</td>
+						</tr>
+						<tr>
+							<td>Total Cited Document </td>
+							<td>{{totalSitasi}} From {{totalDokSitasi}} papers</td>
+						</tr>
+						
+					  </table>
+					</div>
+					
+				</div>
+			</div>
+					</div>
+
+    <div class="col-sm-12 col-md-12 col-lg-12">
+<div class="table-responsive">
+
+					  <table class="table">
+						<tr>
+					  		<th>Title</th>
+					  		<th>Year</th>
+					  		<th>Source</th>
+					  		<th>Citation</th>
+					  	</tr>
+
+						{% for list in lists %}
+
+<tr>
+							<td>
+								<a href="{% url "paperdetail" pk=list.idpaper.pk judul=list.idpaper.title %}">{{ list.idpaper.title }}</a>
+
+
+
+							</td>
+							<td>{{ list.idpaper.year}} 
+							</td>
+
+							<td>{{ list.idpaper.publisher}} {{ list.idpaper.venue.type}} {{ list.idpaper.venue}} volume. {{ list.idpaper.volume}}, page {{ list.idpaper.page}}
+
+							</td>
+							<td>{{ list.idpaper.ncites }}
+							</td>
+						</tr>
 {% endfor %}
-</ol>
+
+						
+						
+					  </table>
+					  
+					
+					</div></div>
+					
 
 
 {% endblock %}

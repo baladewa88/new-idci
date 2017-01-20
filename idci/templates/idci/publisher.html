@@ -35,13 +35,13 @@
 
 <tr>
                             <td>
-                                <a href="">{{ list.name }}</a>
+                                <a href="{% url "afflist" nama=list.pk %}">{{ list.name }}</a>
 
 
 
                             </td>
                             {% load apps_tags %}
-                            <td class="text-center">{{ pap|taff:forloop.counter0 }} 
+                            <td class="text-center">{{ pap|taff:forloop.counter}} 
                             </td>
 
                             <td class="text-center">                1            </td>

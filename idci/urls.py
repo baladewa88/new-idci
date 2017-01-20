@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^authorsearch/?$', views.get_authorname, name='authorname'),
     url(r'^resulta/(?P<data>.+)/$', views.listauthor, name='resulta'),
     url(r'^affsearch/?$', views.get_publisher, name='publisher'),
+    url(r'^aff/(?P<nama>.+)/$', views.afflist, name='afflist'),
     url(r'^resultaff/(?P<data>.+)/$', views.publisherlist, name='resultpub'),
     url(r'^paper/(?P<pk>\S+)/(?P<judul>.+)/$', views.paperdetail, name='paperdetail'),
     url(r'^mergeaff/(?P<judul>.+)/$', views.merge_aff, name='merge_aff'),
