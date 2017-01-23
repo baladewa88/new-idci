@@ -213,13 +213,13 @@ def paperdetail(request, pk, judul):
     for c in citedd:
         cited = Papers.objects.filter(id=c.paperid).order_by('id')
                                                              
-    for a in key:
-        cite = Papers.objects.filter(id=a.paperid).order_by('id')
+    #for a in key:
+     #   cite = Papers.objects.filter(id=a.paperid).order_by('id')
         
             
     dl = Urls.objects.get(paperid=pk)
     
-    return render(request, 'idci/detail.html', {'forma':forma, 'paperdetail': detailPaper, 'keyword':key, 'ref':ref, 'author':author, 'title':cite, 'cited':citedd, 'url':dl, 'venueType':venueType})
+    return render(request, 'idci/detail.html', {'forma':forma, 'paperdetail': detailPaper, 'keyword':key, 'ref':ref, 'author':author, 'cited':citedd, 'url':dl, 'venueType':venueType})
 
 def merge_aff(request, judul):
     # if this is a POST request we need to process the form data

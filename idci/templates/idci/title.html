@@ -33,7 +33,7 @@
   						{% for pen in penulis|tdelta:forloop.counter %}
 								       	 	
     
-								        <a href="{% url "authorlist" nama=pen %}">{{ pen }}</a>,
+								        <a href="{% url "authorlist" nama=pen.pk %}">{{ pen }}</a>,
 
 								       
 							       

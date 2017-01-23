@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'idciapps.wsgi.application'
 DATABASES = {
     'default': {
         'NAME': 'newidci$default',
-        #'NAME': 'newidci3',
+        #'NAME': 'idci_januari',
         'ENGINE': 'django.db.backends.mysql',
         #'USER': 'root',
         'USER': 'newidci',
