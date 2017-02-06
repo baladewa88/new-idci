@@ -138,7 +138,7 @@ def publisherlist(request, data):
     for cPub in pubLists:
         
         hitung.append(AffiliasiRelasi.objects.filter(idaffiliasi=cPub.id).count())
-        print (hitung)
+        #print (hitung)
 
     return render(request, 'idci/publisher.html', {'publisher': pubLists, 'form':form, 'pap':hitung })
 
@@ -147,7 +147,8 @@ def afflist(request, nama):
                                          
    # for a in aff:
     affs = AffiliasiRelasi.objects.select_related('idpaper').filter(idaffiliasi=nama)
-    print(affs)
+    #print(affs)
+
 
     return render(request, 'idci/publisherlist.html', {'lists': affs})
 
